@@ -1,0 +1,31 @@
+Style/ClassAndModuleChildren:
+  Description: "Checks style of children classes and modules."
+  Enabled: false
+
+Style/Documentation:
+  Description: "Document classes and non-namespace modules."
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Description: "Skip validations"
+  Enabled: false
+
+Lint/MissingSuper:
+  Description: "Super when inherit"
+  Enabled: false
+
+Style/SymbolArray:
+  Description: "Use %i or %I for arrays of symbols."
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Description: "Uniq validation without index"
+  Enabled: false
+
+Metrics/ClassLength:
+  Description: "Length of class"
+  Enabled: false
+
+Naming/VariableNumber:
+  Description: "Number in variable"
+  Enabled: false

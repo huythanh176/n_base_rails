@@ -1,0 +1,41 @@
+meta_infos:
+  type: object
+  properties:
+    count:
+      type: integer
+      example: 1
+    page:
+      type: integer
+      example: 1
+    outset:
+      type: integer
+      example: 0
+    items:
+      type: integer
+      example: 30
+    last:
+      type: integer
+      example: 1
+    pages:
+      type: integer
+      example: 2
+    offset:
+      type: integer
+      example: 1
+    params:
+      type: object
+    from:
+      type: integer
+      example: 1
+    to:
+      type: integer
+      example: 1
+    in:
+      type: integer
+      example: 1
+    prev:
+      type: integer
+      example: 1
+    next:
+      type: integer
+      example: 1

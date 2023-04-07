@@ -1,0 +1,51 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+git_source(:github) {|repo| "https://github.com/#{repo}.git"}
+
+ruby "3.0.0"
+
+gem "active_model_serializers"
+gem "bootsnap", require: false
+gem "config"
+gem "devise"
+gem "dotenv-rails"
+gem "jwt"
+gem "mysql2"
+gem "pagy"
+gem "paranoia"
+gem "puma", "~> 5.0"
+gem "rack-cors"
+gem "rails", "~> 7.0.0"
+
+# gem "image_processing", "~> 1.2"
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+
+group :development, :test do
+  gem "brakeman", require: false
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "pry-rails"
+  gem "rails_best_practices"
+  gem "reek"
+  gem "rspec-rails"
+  gem "rubocop", require: false
+  gem "rubocop-checkstyle_formatter", require: false
+  gem "rubocop-rails"
+  gem "shoulda-matchers"
+  gem "simplecov"
+  gem "simplecov-json"
+  gem "simplecov-rcov"
+end
+
+group :development do
+  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
+  # gem "spring"
+  gem "capistrano"
+  gem "capistrano3-puma"
+  gem "capistrano-bundler", require: false
+  gem "capistrano-dotenv", require: false
+  gem "capistrano-passenger", ">= 0.1.1"
+  gem "capistrano-rails", require: false
+  gem "capistrano-rvm"
+end

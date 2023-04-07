@@ -1,0 +1,121 @@
+create:
+  post:
+    summary: Login
+    tags:
+      - Authenticate
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user: 
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: user1@gmail.vn
+                  password:
+                    type: string
+                    example: Aa@123456
+    responses:
+      200:
+        description: Login user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: string
+                  example: true
+                data:
+                  type: object
+                  properties:
+                    access_token:
+                      type: string
+                      example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDg3MTcwMDEsImlhdCI6MTY0ODExMjIwMSwidXNlciI6eyJpZCI6MiwidG9rZW4iOiI3M2ZkMTljMTMxM2E0NmI3ODJhYzc3MjI5YjU3OTk1ODY0NmU2N2I5In0sImlzX3JlZnJlc2hfdG9rZW4iOmZhbHNlfQ.W8okh9k2lMJWfRMP01DCkk4IQclEsRPSW8WyUJ2en_A"
+                    refresh_token:
+                      type: string
+                      example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTA3MDQyMDEsImlhdCI6MTY0ODExMjIwMSwidXNlciI6eyJpZCI6MiwidG9rZW4iOiI3M2ZkMTljMTMxM2E0NmI3ODJhYzc3MjI5YjU3OTk1ODY0NmU2N2I5In0sImlzX3JlZnJlc2hfdG9rZW4iOnRydWV9.u1ggFKZPQYpxRx00qC0Sx2L4fVYg7peE9E5wLX6L7IQ"
+                    user: 
+                      type: object
+                      properties:
+                        id: 
+                          type: integer
+                          example: 1
+                        email:
+                          type: string
+                          example: user1@nal.vn
+                meta:
+                  type: object
+
+refresh:
+  post:
+    summary: Refresh token
+    tags:
+      - Authenticate
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              refresh_token:
+                type: string
+                example: refresh_token
+    responses:
+      201:
+        description: Refresh access token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: string
+                  example: true
+                data:
+                  type: object
+                  properties:
+                    access_token:
+                      type: string
+                      example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDg3MTcwMDEsImlhdCI6MTY0ODExMjIwMSwidXNlciI6eyJpZCI6MiwidG9rZW4iOiI3M2ZkMTljMTMxM2E0NmI3ODJhYzc3MjI5YjU3OTk1ODY0NmU2N2I5In0sImlzX3JlZnJlc2hfdG9rZW4iOmZhbHNlfQ.W8okh9k2lMJWfRMP01DCkk4IQclEsRPSW8WyUJ2en_A"
+                    refresh_token:
+                      type: string
+                      example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTA3MDQyMDEsImlhdCI6MTY0ODExMjIwMSwidXNlciI6eyJpZCI6MiwidG9rZW4iOiI3M2ZkMTljMTMxM2E0NmI3ODJhYzc3MjI5YjU3OTk1ODY0NmU2N2I5In0sImlzX3JlZnJlc2hfdG9rZW4iOnRydWV9.u1ggFKZPQYpxRx00qC0Sx2L4fVYg7peE9E5wLX6L7IQ"
+                    user: 
+                      type: object
+                      properties:
+                        id: 
+                          type: integer
+                          example: 1
+                        email:
+                          type: string
+                          example: user1@nal.vn
+                meta:
+                  type: object
+
+destroy:
+  delete:
+    security:
+      - ApiKeyAuth: []
+    summary: Logout
+    tags:
+      - Authenticate
+    responses:
+      200:
+        description: Logout success
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ok
+                message:
+                  type: string
+                  example: Logout successful
+      401:
+        $ref: "../../shared/unauthorized_response.yaml#invalid_access_token"

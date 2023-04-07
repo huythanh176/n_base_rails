@@ -1,0 +1,31 @@
+invalid_access_token:
+  description:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+          errors:
+            type: array
+            items:
+              type: object
+              properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+      examples:
+        when token is invalid:
+          value:
+            success: false
+            errors:
+              - code: 1204       
+                message: Invalid Token
+        when token is expired:
+          value:
+            success: false
+            errors:
+              - code: 1205       
+                message: Token Expired

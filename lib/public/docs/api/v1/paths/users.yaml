@@ -1,0 +1,24 @@
+with_id:
+  get:
+    security:
+      - ApiKeyAuth: []
+    summary: Get info user
+    tags:
+      - Users
+    responses:
+      200:
+        description:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                data:
+                  $ref: "../definitions/users.yaml#user_details"
+                meta: 
+                  type: object
+      401:
+        $ref: "../../shared/unauthorized_response.yaml#invalid_access_token"

@@ -1,0 +1,22 @@
+pagy:
+  instances:
+    vars: vars
+  items_default: 30
+  page_default: 1    
+
+authorization:
+  access_token_type: Bearer
+
+user:
+  authenticate:
+    access_token:
+      exp: 4 #hours
+    refresh_token:
+      exp: 30 #days
+
+admin:
+  authenticate:
+    access_token:
+      exp: 4 #hours
+    refresh_token:
+      exp: 30 #days

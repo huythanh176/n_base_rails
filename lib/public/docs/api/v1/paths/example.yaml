@@ -1,0 +1,431 @@
+post:
+  summary: Register User
+  tags:
+    - Users
+  description: Use this API to register a new user
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            user[nickname]:
+              type: string
+              example: My name
+            user[email]:
+              type: string
+              example: example@sun-asterisk.com
+            user[password]:
+              type: string
+              example: 12345678
+            user[prefecture_id]:
+              type: integer
+              example: 1
+            user[city_id]:
+              type: integer
+              example: 1
+            user[gender]:
+              type: string
+              example: male
+              description: Accept only one of [male, female, other]
+            user[birthday]:
+              type: string
+              example: "1999-09-13"
+              description: Format yyyy-mm-dd
+            user[height]:
+              type: integer
+              example: 160
+            user[weight]:
+              type: integer
+              example: 60
+            user[avatar]:
+              type: file
+              description: Accept only content_type [jpg, jpeg, png]
+            user[sns_provider]:
+              type: string
+              enum: [google, facebook, apple]
+            user[sns_uid]:
+              type: string
+              example: "bGciOiJIUzI1"
+            platform:
+              type: string
+              example: "android"
+            device_token:
+              type: string
+              example: "e73jnsaq28ddwwd89Wd"
+            device_name:
+              type: string
+              example: "Xiaomi"
+          required:
+            - user[nickname]
+            - user[email]
+            - user[password]
+  responses:
+    200:
+      description: Register user successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                type: object
+                properties:
+                  token_info:
+                    $ref: "../../definitions/common.yaml#/access_token_object"
+                  user:
+                    $ref: "../../definitions/v4/user.yaml#/user_basic_info"
+              meta:
+                type: object
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "../../definitions/common.yaml#/errors_object"
+          examples:
+            when email is empty:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: email
+                    code: 1003
+                    message: メールアドレスを入力してください
+            when email has been taken:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: email
+                    code: 1008
+                    message: メールアドレスが既に登録されています
+            when nickname is empty:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: nickname
+                    code: 1003
+                    message: ニックネームを入力してください
+            when password is empty:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: password
+                    code: 1003
+                    message: パスワードを入力してください
+            when height is less than 1:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: height
+                    code: 1015
+                    message: 身長は1より大きい必要があります
+            when height is greater than 302:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: height
+                    code: 1018
+                    message: 身長は302未満である必要があります
+            when weight is less than 1:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: weight
+                    code: 1015
+                    message: 体重は1より大きい必要があります
+            when weight is greater than 227:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: weight
+                    code: 1018
+                    message: 体重は227未満である必要があります
+            when avatar is invalid:
+              value:
+                success: false
+                errors:
+                  - resource: user
+                    field: avatar
+                    code: 1009
+                    message: Avatarは無効な値です
+            when params birthday is future date:
+              value:
+                success: false
+                errors:
+                  - code: 1028
+                    resource: user
+                    field: birthday
+                    message: 未来の日付は指定できません
+            when SNS uid has been registered by other user:
+              value:
+                success: false
+                errors:
+                  - code: 1008
+                    resource: user
+                    field: uid
+                    message: このアカウントはすでに別の膝栗毛アカウントに登録されています。
+
+patch:
+  summary: Update user info
+  tags:
+    - Users
+  description: Use this API to update user info
+  parameters:
+    - in: header
+      name: JWTAuthorization
+      type: string
+      required: true
+      example: Bearer eyJhbGciOiJIUzI1Ni...
+    - name: id_token
+      in: query
+      description: id token of firebase
+      example: eyJhbGciOiJIUzI1Ni...
+      schema:
+        type: string
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            user[gender]:
+              type: string
+              description: Accept only one of [male, female, other]
+              enum: [male, female, other]
+            user[birthday]:
+              type: string
+              example: "1999-09-13"
+              description: Format yyyy-mm-dd
+            user[height]:
+              type: integer
+              example: 160
+            user[weight]:
+              type: integer
+              example: 60
+            user[prefecture_id]:
+              type: integer
+              example: 1
+            user[city_id]:
+              type: integer
+              example: 1
+            user[nickname]:
+              type: string
+              example: Katarina
+            user[avatar]:
+              type: file
+              description: Accept only content_type [jpg, jpeg, png], send "" to delete avatar
+  responses:
+    200:
+      description: Update user info successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              data:
+                type: object
+              meta:
+                type: object
+    401:
+      $ref: "../../shared/unauthorized_response.yaml#invalid_access_token"
+    400:
+      description: Bad Request
+      content:
+        application/json:
+            schema:
+              $ref: "../../definitions/common.yaml#/errors_object"
+            examples:
+              when height is less than 1:
+                value:
+                  success: false
+                  errors:
+                    - resource: user
+                      field: height
+                      code: 1015
+                      message: 身長は1以上である必要があります
+              when height is greater than 302:
+                value:
+                  success: false
+                  errors:
+                    - resource: user
+                      field: height
+                      code: 1018
+                      message: 身長は302未満である必要があります
+              when weight is less than 1:
+                value:
+                  success: false
+                  errors:
+                    - resource: user
+                      field: weight
+                      code: 1015
+                      message: 体重は1以上である必要があります
+              when weight is greater than 227:
+                value:
+                  success: false
+                  errors:
+                    - resource: user
+                      field: weight
+                      code: 1018
+                      message: 体重は227未満である必要があります
+              when params birthday is future date:
+                  value:
+                    success: false
+                    errors:
+                      - code: 1028
+                        resource: user
+                        field: birthday
+                        message: 未来の日付は指定できません
+
+get:
+  summary: Get info of current user
+  tags:
+    - Users
+  description: Use this API to get info of current user
+  parameters:
+    - in: header
+      name: JWTAuthorization
+      schema:
+        type: string
+      required: true
+      example: Bearer eyJhbGciOiJIUzI1Ni...
+  responses:
+    200:
+      description: Get info successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                type: object
+                properties:
+                  user:
+                    $ref: "../../definitions/v4/user.yaml#user_info"
+              meta:
+                type: object
+    400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "../../definitions/common.yaml#/errors_object"
+          examples:
+            when device invalid:
+              value:
+                success: false
+                errors:
+                  - code: 1602
+                    message: 他のデバイスに既にログインしています。ログアウトしてから再度お試しください。
+    401:
+      $ref: "../../shared/unauthorized_response.yaml#invalid_access_token"
+
+delete:
+  summary: Delete user
+  tags:
+    - Users
+  description: Use this API to delete a user
+  parameters:
+    - in: header
+      name: JWTAuthorization
+      schema:
+        type: string
+      required: true
+      example: Bearer eyJhbGciOiJIUzI1Ni...
+    - name: id_token
+      in: query
+      description: id token of firebase
+      example: eyJhbGciOiJIUzI1Ni...
+      schema:
+        type: string
+  responses:
+    200:
+      description: Delete user successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                type: object
+              meta:
+                type: object
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "../../definitions/common.yaml#/errors_object"
+          examples:
+            when author resource is invalid:
+              value:
+                success: false
+                errors:
+                  - code: 1603
+                    message: ご利用中のアカウントは停止されました
+    401:
+      $ref: "../../shared/unauthorized_response.yaml#invalid_access_token"
+
+destroy_by_token:
+  delete:
+    summary: Delete a user by delete token
+    tags:
+      - Users
+    description: Use this API to delete a user by delete token on email
+    parameters:
+      - in: query
+        name: email
+        type: integer
+        required: true
+        example: example@sun-asterisk.com
+      - in: query
+        name: token
+        type: integer
+        required: true
+        example: "xxx___xyyy___zzz"
+    responses:
+      200:
+        description: Delete user successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                data:
+                  type: object
+                meta:
+                  type: object
+      400:
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../../definitions/common.yaml#/errors_object"
+            examples:
+              when email or token is invalid:
+                value:
+                  success: false
+                  errors:
+                    - code: 1303
+                      message: メールアドレスは無効な値です

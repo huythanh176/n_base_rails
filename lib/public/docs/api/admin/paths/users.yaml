@@ -1,0 +1,39 @@
+without_id:
+  get:
+    security:
+      - ApiKeyAuth: []
+    summary: Get list user
+    tags:
+      - Users
+    parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        required: false
+        example: 1
+        description: page number
+      - in: query
+        name: items
+        schema:
+          type: integer
+        required: false
+        example: 2
+        description: number of item per page
+    responses:
+      200:
+        description:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                data:
+                  $ref: "../definitions/users.yaml#user_list"
+                meta: 
+                  $ref: "../../shared/meta_infos.yaml#meta_infos"
+      401:
+        $ref: "../../shared/unauthorized_response.yaml#invalid_access_token"

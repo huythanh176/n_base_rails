@@ -1,0 +1,29 @@
+openapi: 3.0.1
+info:
+  description: "Document: <a href='https://swagger.io/docs/specification' target='_blank' >Click Here</a>
+                  <br>Example: <a href='https://petstore.swagger.io' target='_blank' >Click Here </a>"
+  version: 1.0.0
+  title: "API documents"
+schemes:
+- "https"
+- "http"
+paths:
+  # Sessions
+  /api/admin/sign_in:
+    $ref: "sessions.yaml#create"
+  /api/admin/refresh:
+    $ref: "sessions.yaml#refresh"
+  /api/admin/logout:
+    $ref: "sessions.yaml#destroy"
+
+  # Users 
+  /api/admin/users:
+    $ref: "users.yaml#without_id"
+
+    
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: "Authorization"
+      in: "header"
