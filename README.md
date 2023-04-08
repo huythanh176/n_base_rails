@@ -25,8 +25,9 @@ Or install it yourself as:
 TODO: 
 It very easy to use: 
 
-$ rails generate n_base_rails:install
-$ rails s
+```$ rails generate n_base_rails:install```
+
+```$ rails s```
 
 Use can check this: THis is api common on all project
 
