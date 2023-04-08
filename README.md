@@ -24,7 +24,7 @@ Or install it yourself as:
 
 TODO: 
 It very easy to use: 
-
+``` install rails new project ```
 ```$ rails generate n_base_rails:install```
 
 ```$ rails db:create && rails db:migrate && rails db:seed```
