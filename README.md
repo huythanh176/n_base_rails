@@ -2,7 +2,7 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/n_base_rails`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+* This is rails api source base, it includes base about controller, model, service, rspec 
 
 ## Installation
 
@@ -23,12 +23,15 @@ Or install it yourself as:
 ## Usage
 
 TODO: 
-    $ rails generate n_base_rails:install
-    $ bundle install 
+It very easy to use: 
 
-Update: 
- * database yml -> Change database name default
- * update ENV 
+$ rails generate n_base_rails:install
+$ rails s
+
+Use can check this: THis is api common on all project
+
+<img width="1435" alt="image" src="https://user-images.githubusercontent.com/40078077/230737005-d0b9b30b-918f-4e33-825a-c3b6be3f4606.png">
+
  
 ## Development
 
