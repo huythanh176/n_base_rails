@@ -27,9 +27,11 @@ It very easy to use:
 
 ```$ rails generate n_base_rails:install```
 
+```$ rails db:create && rails db:migrate && rails db:seed```
+
 ```$ rails s```
 
-Use can check this: THis is api common on all project
+Use can check this: This is api common on all project
 
 <img width="1435" alt="image" src="https://user-images.githubusercontent.com/40078077/230737005-d0b9b30b-918f-4e33-825a-c3b6be3f4606.png">
 
